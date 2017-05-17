@@ -1,0 +1,111 @@
+@charset "utf-8";
+html,
+body {
+    margin: 5px;
+}
+
+.wrapper {
+    width: 800px;
+    height: 800px;
+    position: relative;
+    background: lime;
+}
+
+.box-A {
+    width: 25%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: orange;
+}
+
+.box-A div {
+    text-align: center;
+    height: 25%;
+}
+
+.box-B {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 0;
+    right: 25%;
+    background: pink;
+    text-align: center;
+}
+
+.box-B div {
+    width: 50%;
+    height: 50%;
+}
+
+.up::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.box-5,
+.box-6 {
+    float: left;
+    /*position: absolute;*/
+    /*top: 0;
+    right: 50%;*/
+    width: 50%;
+    height: 25%;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+.box-7,
+.box-8 {
+    float: left;
+    width: 50%;
+    height: 50%;
+}
+
+.box-C {
+    width: 50%;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    right: 25%;
+    background: skyblue;
+    text-align: center;
+}
+
+.box-C .down1,
+.down2 {
+    width: 25%;
+    height: 50%;
+}
+
+.box-D {
+    height: 100%;
+    width: 25%;
+}
+
+.box-D div {
+    text-align: center;
+    height: 25%;
+    background: #aaa;
+}
+
+.box-C div {
+    text-align: center;
+    width: 50%;
+    height: 50%;
+}
+
+.down1 {
+    position: absolute;
+    top: 50%;
+    right: 25%;
+}
+
+.down2 {
+    position: absolute;
+    top: 50%;
+    right: 50%;
+}
