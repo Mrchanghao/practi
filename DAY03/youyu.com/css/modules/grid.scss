@@ -1,0 +1,384 @@
+/*! grid.css @ 2017, yamoo9.net */
+
+@import 'settings';
+// Toggle Grid Module
+// 브라우저 뷰에 그리드 가이드를 토글(보임/감춤)하는 스타일 모듈
+// .show-grid
+.#{$toggle-classname} {
+    position: relative;
+}
+
+.#{$toggle-classname}::before,
+.#{$toggle-classname}::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    height: $guide-height;
+}
+
+.#{$toggle-classname}::before {
+    // 지역 변수
+    $leading-limit: $leading - 1;
+    z-index: 10000;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient( 180deg, transparent $leading-limit, #0cf $leading-limit);
+    background-size: 1px $leading;
+}
+
+.#{$toggle-classname}::after {
+    $full-width: $column-width + $gutter-width;
+    z-index: 10010;
+    left: 50%;
+    width: $page-width;
+    height: 100%; //하이트는 나중에 수정 
+    background: linear-gradient( 90deg, transparent $half-gutter-width, $column-color $half-gutter-width, $column-color $column-width + $half-gutter-width, transparent $column-width + $half-gutter-width);
+    background-size: $full-width 1px;
+    transform: translateX(-50%);
+}
+
+// Container Module
+// 그리드 요소들을 감싸는 블록(Block)
+// .container
+.container {
+    width: $page-width;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+// Row Module
+// 컬럼을 감싸는 로우(행) 모듈
+// .row
+.row {
+    &::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    // Nesting Row Module
+    // 중첩 로우(행) 모듈
+    // .row.is-nesting
+    &.is-nesting {
+        &> :first-child {
+            margin-left: 0;
+        }
+        &> :last-child {
+            margin-right: 0;
+        }
+    }
+    &::after {
+        content: '';
+        display: block;
+        clear: both;
+    }
+    // Nesting Row Module
+    // 중첩 로우(행) 모듈
+    // .row.is-nesting
+    &.is-nesting {
+        &> :first-child {
+            margin-left: 0;
+        }
+        &> :last-child {
+            margin-right: 0;
+        }
+    }
+    // Isolate Row Module
+    // 격리된 로우(행) 모듈 -> 컬럼에 설정
+    // .is-isolate
+    &.is-isolate>.col {
+        margin-right: -100%;
+    }
+}
+
+// Column Module
+// 컬럼(열) 모듈
+// .col.is-*
+.col {
+    float: left;
+    margin-left: $half-gutter-width;
+    margin-right: $half-gutter-width;
+}
+
+@for $i from 1 through $columns {
+    .is-#{$i} {
+        width: column-width($i);
+    }
+    // Offeset Module
+    // 컬럼 핸들링 모듈
+    // .is-offset-*
+    .is-offset-#{$i} {
+        $offset-width: offset-width($i);
+        margin-left: $offset-width;
+        .is-nesting &:first-child {
+            margin-left: $offset-width - $half-gutter-width;
+        }
+    }
+    .is-#{$i} {
+        width: column-width($i);
+    }
+    // Offeset Module
+    // 컬럼 핸들링 모듈
+    // .is-offset-*
+    $offset-width: offset-width($i);
+    .is-offset-#{$i} {
+        margin-left: $offset-width;
+        .is-nesting &:first-child {
+            margin-left: $offset-width - $half-gutter-width;
+        }
+    }
+    // Isolate Row Module
+    // 격리된 로우(행) 모듈 -> 컬럼에 설정
+    @if $i>1 {
+        $ii: $i - 1;
+        .is-isolate>.order-#{$ii},
+        .is-isolate>.o-#{$ii} {
+            margin-left: order-width($ii);
+        }
+    }
+}
+
+// Utilities Module
+// 유틸리티 모듈
+// .hidden
+.hidden {
+    display: none;
+}
+
+// .a11y-hidden
+// header 영역
+.header {
+    position: relative;
+}
+
+.header::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 3000px;
+    height: auto;
+    border-bottom: 3px solid #f00;
+}
+
+.logo {
+    margin-top: 30px;
+}
+
+.search-form {
+    position: relative;
+    width: 300px;
+    height: 40px;
+    margin-top: 40px;
+}
+
+.search-form span {
+    position: absolute;
+    background: url(images/search.svg) no-repeat 0 9px;
+    top: 0;
+    left: 40px;
+    background-size: 15px;
+}
+
+.search-form .search {
+    border: 2px solid #000;
+    padding: 15px 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.log-in {
+    margin-top: 50px;
+}
+
+.log-in a {
+    display: inline;
+    text-decoration: none;
+    color: #f00;
+    margin-left: 20px;
+}
+
+.a11y-hidden {
+    overflow: hidden;
+    position: absolute;
+    clip: rect(0, 0, 0, 0);
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    border: 0;
+    padding: 0;
+    &.focusable:focus {
+        overflow: visible;
+        position: static;
+        clip: auto;
+        width: auto;
+        height: auto;
+        margin: 0;
+    }
+}
+
+caption.a11y-hidden {
+    position: static;
+}
+
+// navigation 작업
+.navigation {
+    display: block;
+    // border-bottom: 5px solid #f00;
+}
+
+.navigation ul {
+    padding: 0;
+    // list-style: none;
+}
+
+.navigation ul>li {
+    display: inline-block;
+    padding-left: 10px;
+    padding-right: 30px;
+    margin-top: 15px;
+    list-style: none;
+    // margin-right: 5px;
+}
+
+.btn {
+    text-transform: uppercase;
+    background: #fff;
+    text-decoration: none;
+    // padding: 20px 40px
+}
+
+.btn:hover {
+    background: #f00;
+    border: 0;
+    border-radius: 20%;
+    // padding: 20px 40px;
+}
+
+.gray-area {
+    background-color: #aaa;
+}
+
+.gray-area ul {
+    padding: 40;
+    list-style: none;
+}
+
+.gray-area a {
+    color: #f00;
+    text-decoration: none;
+}
+
+.banner {
+    margin-top: 20px;
+    margin-left: 0;
+}
+
+.indicator {
+    padding: 0;
+}
+
+.indicator .dots {
+    display: inline-block;
+    // padding: 0;
+    // border-radius: 100%;
+}
+
+.indicator .btn {
+    display: inline-block;
+    border-radius: 100%;
+    background-color: #aaa;
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 5px;
+    // margin: 10px;
+    // transition: all .4s cubic-bezier(.3, 0, 0, 1.3);
+}
+
+.indicator .btn:hover {
+    color: #f00;
+}
+
+// 질문 !!!!
+// 베스트 셀러 섹션
+.best-seller h2 {
+    margin-bottom: 0;
+}
+
+.item-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    // margin: 0 10px;
+}
+
+.item-list li {
+    list-style: none;
+    // text-decoration: none;
+    width: 230px;
+    border: 1px solid #a8a8a8;
+    border-radius: 2px;
+    margin: 0 10px;
+    ;
+}
+
+.hit-area,
+.new-items {
+    list-style: none;
+    text-decoration: none;
+}
+
+.item-brend,
+.item-title,
+.item-price {
+    padding-left: 10px;
+}
+
+.item-brend {
+    font-size: 13px;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    font-weight: 900;
+    color: #000;
+}
+
+.item-title {
+    font-size: 13px;
+    font-style: normal;
+    // padding-top: 0;
+    margin-top: 0;
+    color: #000;
+}
+
+.item-price {
+    font-size: 16px;
+    color: #F00;
+}
+
+// 브랜드 
+// 신상품 section
+.new-item h2 {
+    margin-bottom: 0;
+}
+
+.item-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0;
+    // margin: 0 10px;
+}
+
+.item-list li {
+    list-style: none;
+    // text-decoration: none;
+    width: 230px;
+    border: 1px solid #a8a8a8;
+    border-radius: 2px;
+    margin: 0 10px;
+    ;
+}

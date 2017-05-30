@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>shoppingmall &lt; yuyu.com</title>
+    <link rel="stylesheet" href="css/modules/init.css">
+    <link rel="stylesheet" href="css/modules/grid.css">
+    <style>
+        /*.box-wrapper {
+            background: #ff0;
+        }*/
+        
+        .box {
+            height: 126px;
+            background: #333;
+            color: #fff;
+            text-align: center;
+            line-height: 126px;
+        }
+        
+        .gap {
+            margin-bottom: 21px;
+        }
+    </style>
+</head>
+
+<body class="show-grid">
+    <div class="container">
+        <header class="header">
+            <div class="row">
+                <div class="logo col is-2 "><img class="is-2" srcset="images/header/logo.svg" alt="헤더로고"></div>
+                <div class="search-area col is-3 is-offset-2">
+                    <form class="search-form"><span class="icon"></span><input class="search" type="search" placeholder="검색어를 입력하세요"></form>
+                </div>
+                <!--아이콘에 포지션 앱솔루트 주고 좌표 지정, 백그라운드 속성으로  당연히 form tag는 포지션 relative로-->
+                <!--회원가입 영역-->
+                <div class=" log-in col is-2 is-offset-2 "><a class="sign-up" href="#">로그인</a> <a class="col is-offset-1 sigin-in" href="#">회원가입</a></div>
+                <!--각 태그마다 마진 탑 주고 폰트 웨이트 더 굵게 그리고 칼라는 레드로 사이 간격 -->
+            </div>
+
+            <div class="row">
+                <nav class=" navigation">
+                    <ul class="col is-11  menu">
+                        <li><a href="#" class="btn">MAIN</a></li>
+                        <li><a href="#" class="btn">BRAND</a></li>
+                        <li><a href="#" class="btn">SPECIAL</a></li>
+                        <li><a href="#" class="btn">OUTER</a></li>
+                        <li><a href="#" class="btn">TOPS</a></li>
+                        <li><a href="#" class="btn">BOTTOM</a></li>
+                        <li><a href="#" class="btn">DRESS</a></li>
+                        <li><a href="#" class="btn">SHOES</a></li>
+                        <li><a href="#" class="btn">BAG</a></li>
+                        <li><a href="#" class="btn">ACC</a></li>
+                        <li><a href="#" class="btn">SUMMER</a></li>
+                    </ul>
+                </nav>
+            </div>
+
+        </header>
+
+
+        <section class="filter-area">
+            <div class="row">
+                <div class="col is-12 gray-area">
+                    <ul class="col is-2 is-offset-5">
+                        <li class="filter"><a class="selected" href="#" data-type="all">필터를 설정하십시요</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="banner">
+            <div class="row">
+                <a class="banner-image" href="#">
+                    <figure class="col is-12">
+                        <figcaption><img class="banner" src="images/banner/banner-01.jpg" width="1060" height="441" alt="배너광고"></figcaption>
+                    </figure>
+                </a>
+            </div>
+            <div class="row">
+                <ol class="col is-3 is-offset-4 indicator">
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                    <li class="dots">
+                        <a href="#" class="btn"></a>
+                    </li>
+                </ol>
+            </div>
+        </section>
+        <section class="best-seller">
+            <div class="row">
+                <h2 class="col is-2 ">베스트 셀러</h2>
+            </div>
+            <div class="row">
+                <ul class="col is-12 item-list">
+                    <li>
+                        <a href="#" class="hit-area">
+                            <img src="images/best-seller/bs-seller-01.jpg" alt class="best-item">
+                            <p class="item-brend"><em>Zemma World</em></p>
+                            <h4 class="item-title">Puppy-코튼니트</h4>
+                            <p class="item-price">39,000원</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hit-area">
+                            <img src="images/best-seller/bs-seller-02.jpg" alt class="best-item">
+                            <p class="item-brend"><em>myblin</em></p>
+                            <h4 class="item-title">버튼 체크 원피스</h4>
+                            <p class="item-price">41,000원</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hit-area">
+                            <img src="images/best-seller/bs-seller-03.jpg" alt class="best-item">
+                            <p class="item-brend"><em>BULLAN GIRL</em></p>
+                            <h4 class="item-title">아미라벨맨투맨</h4>
+                            <p class="item-price">12,500원</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="hit-area">
+                            <img src="images/best-seller/bs-seller-04.jpg" alt class="best-item">
+                            <p class="item-brend"><em>MINBBONG</em></p>
+                            <h4 class="item-title">Night-스키니팬츠</h4>
+                            <p class="item-price">29,000원</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+        <section class="brand">
+            <div class="row">
+                <ul class="col is-12 brand">
+                    <a href="#" class="brand">
+                        <li>
+                            <h3><em>mixxmix</em></h3>
+                            <p><em>01.mixxmix</em></p>
+                        </li>
+                    </a>
+                    <a href="#" class="brand">
+                        <li>
+                            <h3><em>REINE</em></h3>
+                            <p><em>02.REINE</em></p>
+                        </li>
+                    </a>
+                    <a href="#" class="brand">
+                        <li>
+                            <h3><em>BANHALA</em></h3>
+                            <p><em>03.BANHALA</em></p>
+                        </li>
+                    </a>
+                    <a href="#" class="brand">
+                        <li>
+                            <h3><em>CHERRYKOKO</em></h3>
+                            <p><em>04.CHERRYKOKO</em></p>
+                        </li>
+                    </a>
+                </ul>
+
+            </div>
+            <button type=""></button>
+            <button type=""></button>
+        </section>
+        <section class="new-item">
+            <div class="row">
+                <h2 class="col is-2 ">신상품</h2>
+            </div>
+            <div class="row">
+                <ul class="col is-12 item-list">
+                    <li>
+                        <a href="#" class="new-items">
+                            <img src="images/new-items/new-product-01.jpg" alt class="new-item">
+                            <p class="item-brend"><em>Monobabie</em></p>
+                            <h4 class="item-title">엘렌 나트원피스</h4>
+                            <p class="item-price">55,500원</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="new-items">
+                            <img src="images/new-items/new-product-02.jpg" alt class="new-item">
+                            <p class="item-brend"><em>From Beginning</em></p>
+                            <h4 class="item-title">Ohkoos Vintage Knit</h4>
+                            <p class="item-price">25,600원</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="new-items">
+                            <img src="images/new-items/new-product-03.jpg" alt class="new-item">
+                            <p class="item-brend"><em>ZEMMA WORLD</em></p>
+                            <h4 class="item-title">Tied 골지니트</h4>
+                            <p class="item-price">22,000원</p>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="new-items">
+                            <img src="images/new-items/new-product-04.jpg" alt class="new-item">
+                            <p class="item-brend"><em>daily monday</em></p>
+                            <h4 class="item-title">Buckle Wrap mini skirt</h4>
+                            <p class="item-price">27,000원</p>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </div>
+
+
+    <script src="js/toggleGrid.js"></script>
+</body>
+
+</html>

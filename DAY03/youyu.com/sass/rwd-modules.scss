@@ -1,0 +1,40 @@
+                //video web iframe 재사용하기 위한 모듈
+                $rwd-media: video,
+                map;
+                @each $product in $rwd-media {
+                    @debug $product;
+                    .rwd-media#{$product} {
+                        overflow: hidden;
+                        position: relative;
+                        max-width: 100%;
+                        height: 0;
+                        &.is-4x3 {
+                            padding-bottom: 75%; // 4:3
+                        }
+                        &.is-16x9 {
+                            padding-bottom: 56.25%; //  16:9 
+                        }
+                        &.is-21-9 {
+                            padding-bottom: 42.8571%; //  21:9
+                        }
+                        iframe {
+                            position: absolute;
+                            top: 0;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                        }
+                        script {
+                            position: absolute;
+                            top: 75%;
+                            left: 0;
+                            width: 100%;
+                            height: 100%;
+                            border: none;
+                        }
+                    }
+                }
+                
+                // 미디어 쿼리에 따른 반응형 제작
+                // 미디어 쿼리 표현 방식 dpi, ppx 등에 따른 것

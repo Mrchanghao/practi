@@ -1,0 +1,75 @@
+.rwd-mediavideo {
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  height: 0;
+}
+
+.rwd-mediavideo.is-4x3 {
+  padding-bottom: 75%;
+}
+
+.rwd-mediavideo.is-16x9 {
+  padding-bottom: 56.25%;
+}
+
+.rwd-mediavideo.is-21-9 {
+  padding-bottom: 42.8571%;
+}
+
+.rwd-mediavideo iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.rwd-mediavideo script {
+  position: absolute;
+  top: 75%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.rwd-mediamap {
+  overflow: hidden;
+  position: relative;
+  max-width: 100%;
+  height: 0;
+}
+
+.rwd-mediamap.is-4x3 {
+  padding-bottom: 75%;
+}
+
+.rwd-mediamap.is-16x9 {
+  padding-bottom: 56.25%;
+}
+
+.rwd-mediamap.is-21-9 {
+  padding-bottom: 42.8571%;
+}
+
+.rwd-mediamap iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.rwd-mediamap script {
+  position: absolute;
+  top: 75%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/*# sourceMappingURL=../../map/rwd-modules.css.map */

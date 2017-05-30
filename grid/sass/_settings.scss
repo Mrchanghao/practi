@@ -1,0 +1,26 @@
+//기본설계 
+$font-size: 14px;
+//줄 간격
+$leading-scale: 1.5;
+$leading: $leading-scale * $font-size;
+$guide-height: 100vh;
+//그리드 설계
+$guide-class: 'show-grid';
+$guide-height: 100vh;
+$columns: 12;
+$column-width: 70px;
+$column-color: #947bb2;
+$gutter-position: 'split';
+$gutter-width: 20px;
+$half-gutter-width: $gutter-width/2;
+// page width function 
+$page-width: ($column-width + $gutter-width) * $columns;
+// 컬럼 개수에 따른 width 구하는 function
+@function column-width($n) {
+    @return ($column-width*$n)+$gutter-width($n-1);
+}
+
+// offset 개수에 따른 margin-left calculation function
+@function offset-width($n) {
+    @return column-width($n)+($gutter-width+$half-gutter-width);
+}
