@@ -1,0 +1,55 @@
+    html {
+        overflow-y: visible;
+        font-size: 10px;
+    }
+    
+    body {
+        margin: 0;
+        line-height: 1.5;
+        /*background: #000;*/
+        /*color: #000;*/
+    }
+    
+    body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    
+    .photo-container {
+        position: relative;
+        width: 900px;
+        height: 420px;
+        /*background: #000;*/
+    }
+    
+    .photo-showcase {
+        margin: 0;
+    }
+    
+    ul {
+        list-style: none;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding-left: 0;
+        display: flex;
+        justify-content: space-around;
+    }
+    
+    .photo-showcase-controller {
+        position: absolute;
+        width: 100%;
+        bottom: 1rem;
+    }
+    
+    .photo-showcase-indicator:focus {
+        outline: none;
+    }
+    
+    .photo-showcase-indicator img {
+        vertical-align: middle;
+        width: 160px;
+        height: 100px;
+        border: 3px solid #aaa;
+    }
