@@ -1,0 +1,25 @@
+@charset "utf-8";
+html {
+    font-size: 10px;
+}
+
+body {
+    margin: 0;
+    font-family: "Spoqa Han Sans", "Helvetica Neue", Helvetica, Arial;
+    line-height: 1.5;
+    background: #aaa;
+}
+
+.demo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.bdoy-container {
+    position: relative;
+    width: 900px;
+    height: 420;
+    background: #000;
+}

@@ -82,7 +82,7 @@ var state_manager = [{
 ];
 
 // 4: 0 ~ 3
-var video_obj = state_manager[randomNumber(state_manager.length)];
+// var video_obj = state_manager[randomNumber(state_manager.length)];
 
 if (isType(video_obj, 'object')) {
 

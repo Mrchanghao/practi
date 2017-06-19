@@ -17,7 +17,7 @@ var FDS = function(global) {
         validateError(kind, '!string', '2번째 전달인자는 문자열이어야 합니다');
         return type(data) === kind;
     }
-
+    //validateError 패스
     function validateError(data, kind, error_message) {
         data = type(data);
         if (kind.indexOf('!') === 0) {
@@ -235,7 +235,101 @@ var FDS = function(global) {
     var hasChild = function(node) {
         validateElementNode(node);
         return node.hasChildNodes();
-    }
+    };
+
+    // ——————————————————————————————————————
+    // DOM 생성/조작 API: 유틸리티 함수
+    // ——————————————————————————————————————
+    var createElement = function(name) {
+        validateError(name, '!string', '요소의 이름을 문자열로 전달해주세요.');
+        return document.createElement(name);
+    };
+    var createText = function(content) {
+        validateError(content, '!string', '콘텐츠는 문자열이어야 합니다.');
+        return document.createTextNode(content);
+    };
+    var appendChild = function(parent, child) {
+        validateElementNode(parent);
+        parent.appendChild(child);
+        return child;
+    };
+    var createEl = function(name, content) {
+        validateError(name, '!string', '첫번째 인자로 요소의 이름을 설정해주세요.');
+        var el = createElement(name);
+        if (content && isType(content, 'string')) {
+            var text = createText(content);
+            appendChild(el, text);
+        }
+        return el;
+    };
+    var insertBefore = function(insert, target) {
+        validateElementNode(insert);
+        validateElementNode(target);
+        parent(target).insertBefore(insert, target);
+        return insert;
+    };
+    var before = function(target, insert) {
+        return insertBefore(insert, target);
+    };
+    var prependChild = function(parent, child) {
+        validateElementNode(parent);
+        validateElementNode(child);
+        var target = firstChild(parent);
+        return target ? insertBefore(child, target) : appendChild(parent, child);
+    };
+    var insertAfter = function(insert, target) {
+        var next = nextSibling(target);
+        return next ? insertBefore(insert, next) : appendChild(parent(target), insert);
+    };
+    var after = function(target, insert) {
+        return insertAfter(insert, target);
+    };
+    var removeChild = function(child) {
+        // 부모노드.removeChild(자식노드)
+        validateElementNode(child);
+        return parent(child).removeChild(child);
+    };
+    var replaceChild = function(replace, target) {
+        validateElementNode(target);
+        return parent(target).replaceChild(replace, target);
+    };
+    var hasClass = function(el, name) {
+        validateElementNode(el);
+        validateError(name, '!string');
+        var el_classes = el.getAttribute('class');
+        var reg = new RegExp('(^|\\s)' + name + '($|\\s)');
+        return reg.test(el_classes);
+    };
+    var addClass = function(el, name) {
+        if (!hasClass(el, name)) {
+            var new_value = (el.getAttribute('class') || '') + ' ' + name;
+            el.setAttribute('class', new_value.trim());
+        }
+        return el;
+    };
+    var removeClass = function(el, name) {
+        if (!name) {
+            validateElementNode(el);
+            el.removeAttribute('class');
+        } else {
+            if (hasClass(el, name)) {
+                var reg = new RegExp(name);
+                var new_value = el.getAttribute('class').replace(reg, '');
+                el.setAttribute('class', new_value.trim());
+            }
+        }
+        return el;
+    };
+    var toggleClass = function(el, name) {
+        return hasClass(el, name) ? removeClass(el, name) : addClass(el, name);
+    };
+    var radioClass = function(el, name) {
+        validateElementNode(el);
+        validateError(name, '!string');
+        var old_active = query('.' + name, parent(el));
+        old_active && removeClass(old_active, name);
+        addClass(el, name);
+    };
 
     // ---------------------------------------
     // 반환: FDS 네임스페이스 객체
@@ -249,7 +343,9 @@ var FDS = function(global) {
             license: 'MIT'
         },
 
+        // ----------------
         // 공개 API
+        // ----------------
 
         // JavaScript 유틸리티
         type: type,
@@ -275,8 +371,24 @@ var FDS = function(global) {
         prev: previousSibling,
         next: nextSibling,
         parent: parent,
-        hasChild: hasChild
+        hasChild: hasChild,
 
+        // DOM 생성/조작 API: 유틸리티
+        createEl: createEl,
+        appendChild: appendChild,
+        prependChild: prependChild,
+        removeChild: removeChild,
+        insertBefore: insertBefore,
+        insertAfter: insertAfter,
+        before: before,
+        after: after,
+        replaceChild: replaceChild,
+        // class 속성 조작: 유틸리티
+        hasClass: hasClass,
+        addClass: addClass,
+        removeClass: removeClass,
+        toggleClass: toggleClass,
+        radioClass: radioClass,
     };
 
 }(window);
