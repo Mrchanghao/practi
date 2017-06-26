@@ -1,0 +1,97 @@
+@charset "UTF-8";
+@import 'https://fonts.googleapis.com/css?family=Open+Sans';
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    perspective: 1000px;
+    overflow-y: scroll;
+}
+
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.nav ul {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.filter {
+    display: inline-block;
+    padding: 11px 70px;
+    background-color: #fff;
+    color: #0bbcd6;
+    box-shadow: 0 0 0 1px #0bbcd6, inset 0 0 0 0 #0bbcd6;
+    font-weight: normal;
+    cursor: pointer;
+    font-family: "Open Sans";
+    transition: all 0.7s ease;
+}
+
+.filter:hover,
+.filter .active {
+    box-shadow: 0 0 0 1px #0bbcd6, inset 0 60px 0 -15px #0bbcd6;
+    color: #fff;
+}
+
+.shuffle-grid {
+    width: 100%;
+    padding: 10px;
+    overflow: hidden;
+    transform: preserve-3d;
+    box-shadow: 0 0 1px 1px #999;
+    transition: all 1s ease;
+}
+
+.shuffle-grid:after {
+    content: '';
+    display: block;
+    clear: both;
+}
+
+.item {
+    float: left;
+    width: 33.3%;
+    height: 300px;
+    margin-bottom: 20px;
+    transition: all .7s ease-out;
+}
+
+.item img {
+    width: 100%;
+    height: 100%;
+}
+
+@media (max-width:791px) {
+    .item {
+        width: 50%
+    }
+}
+
+@media (max-width:540px) {
+    .item {
+        width: 100%
+    }
+}
+
+.item[data-category*="test1"] {
+    background-color: aqua
+}
+
+.item[data-category$="test"] {
+    background-color: coral
+}
+
+.item[data-category*="bla"] {
+    background-color: blueviolet
+}
+
+.item[data-category*="foo"] {
+    background-color: cornflowerblue
+}

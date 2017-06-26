@@ -9,29 +9,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>DOM 스크립트 &lt; JavaScript 학습</title>
-    <link rel="stylesheet" href="style.css">
-    <script src="study/data.js"></script>
-    <script id="FDS" src="FDS.js"></script>
+    <title>포토 쇼케이스 &lt; DOM 스크립트</title>
+    <link href="https://spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css" rel="stylesheet">
+    <link rel="stylesheet" href="study/style.css">
+    <script id="FDS" src="../library/FDS.js"></script>
 </head>
 
-<body>
+<body class="demo">
 
-    <div class="container">
-        <ul id="study-content">
-            <li><a href="#js-core" class="link-content">JavaScript Core</a></li>
-            <li><a href="#dom-script" class="link-content">DOM Script</a></li>
-            <li><a href="#custom-js-lib" class="link-content">Custom JS Library</a></li>
-            <li>
-                <a href="#js-framework" class="link-content"></a>
-            </li>
-        </ul>
+    <div class="photo-showcase-container">
+
+        <h1 class="photo-showcase-title">Photo Showcase</h1>
+
+        <figure class="photo-showcase">
+            <img src="https://unsplash.it/900/420?image=1068" alt="푸른 빛 탁자">
+        </figure>
+
+        <nav class="photo-showcase-controller">
+            <ul role="tablist"></ul>
+        </nav>
+
     </div>
 
-    <div class="empty"></div>
-    <span class="span-el"></span>
-    <blockquote class="block-quotation"></blockquote>
-    <script src="DOM.Script.js"></script>
+    <script src="./study/photo.showcase.js"></script>
+    <script src="./study/dom.script.js"></script>
+</body>
+
+</html>
+
+
+
+
+
+
+
+<script src="./study/DOM.Script.js"></script>
 </body>
 
 </html>
