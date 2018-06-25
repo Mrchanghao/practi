@@ -1,93 +1,62 @@
-// // data 유형 {
-//    title: [식별자, 속성(완료, 진행) }
-// }
+(function() {
+    'use strict';
+    var app = {
+        init: function() {
+            // list load 
+            app.storage('get');
 
+            //add task 
+            document.querySelector('.app-insert input').addEventListener('keyup',
+                function(e) {
+                    if (e.which === 13 && this.value !== ' ') {
+                        app.addTask(this.value);
+                        app.storage('update');
+                        this.value = ' ';
+                    }
 
-// add task(title) 
-// //모델에 titile 추가 함수 
+                }, false);
+            document.querySelector('.app-list').addEventListener('click',
+                function(e) {
+                    //remove 
+                    if (e.target.classList.contains('remove-task')) {
+                        app.removeTask(e.target.parentNode);
+                        // complete 
+                    } else if (e.target.classList.contains('task')) {
+                        app.completeTask(e.target);
+                    }
+                }, false);
+        },
+        addTask: function(task) {
+            var new_task = document.createElement('li');
+            new_task.setAttribute('class', 'task');
+            new_task.innerHTML = task + '<a href="#" type="button" class="remove-task">Remove</a>';
 
+            var $list = document.querySelector('.app-list ul');
+            $list.appendChild(new_task);
+        },
+        removeTask: function(task) {
+            task.style.opacity = 0;
+            setTimeout(function() {
+                task.remove();
+                app.storage('update');
+            }, 400);
+        },
+        completeTask: function(task) {
+            task.classList.toggle('task-complete');
+            app.storage('update');
+        },
+        storage: function(type) {
+            if (type === 'get') {
+                if (localStorage.getItem('javascript') !== null) {
+                    document.querySelector('.app-list').innerHTML =
+                        localStorage.getItem('javascript');
+                }
+            } else if (type === 'update') {
+                var str = document.querySelector('.app-list').innerHTML;
+                localStorage.setItem('javascript', str);
+            }
+        }
+    };
 
-// remove task(id)
-
-// var newBtn = document.getElementById('btn-add');
-// newBtn.onclick = addNewTask();
-
-// function addNewTask() {
-//     var listTask = document.createElement('li');
-//     listTask.innerText = taskText;
-
-//     var list = document.getElementById('to-do-list');
-//     list.appendChild(listTask);
-// }
-
-
-// newBtn.onclick = function() {
-//     var inputText = document.getElementById('input-text');
-//     var taskText = inputValue;
-// }
-
-
-function addNewTask(list, taskText) {
-
-    var listTask = document.createElement('li');
-
-
-    var checkBox = document.createElement('input'); //체크 박스 생성  
-
-    checkBox.type = 'checkbox' //체크 박스에 타입값 부여
-    checkBox.setAttribute('class', 'check-btn')
-
-    var complete = document.createElement('span');
-
-    complete.innerText = taskText;
-    // listTask.innerText = taskText;    
-    listTask.appendChild(checkBox);
-
-    listTask.appendChild(complete);
-    list.appendChild(listTask);
-
-    var remove = document.createElement('button');
-    remove.textContent = '-';
-    listTask.appendChild(remove);
-    remove.setAttribute('class', "delete-btn")
-
-
-
-}
-// 
-var newBtn = document.getElementById('btn-add');
-
-newBtn.onclick = function() {
-    var inputText = document.getElementById('input-text');
-
-    var taskText = inputText.value;
-
-
-    if (!taskText.trim()) //trim method 
-
-        return false;
-
-
-    addNewTask(document.getElementById('to-do-list'), taskText);
-    inputText.value = "";
-
-};
-
-var removeBtn = document.getElementsByName('remove');
-listTask = document.documentElement.querySelectorAll('li');
-
-removeBtn.onclick = function() {
-    for (var i = 0; listTask.length; i++) {
-        var removeEl = document.getElem
-    }
-}
-
-// list 삭제 함수 이벤트
-
-// function removeAll() {
-//     var listTask = document.querySelectorAll('li');
-//     for (var i = 0, l = listTask.length; i < l; i++) {
-//         var removeEl = document.getElementsByTagName('li')[i];
-//         var container = removeChild.()
-//     }
-// }
+    app.init();
+})();

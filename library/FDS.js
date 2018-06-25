@@ -3,12 +3,14 @@
 var FDS = function(global) {
 
     var document = global.document;
+    var toString = Object.prototype.toString;
+    var forEach = Array.prototype.forEach;
 
     // ——————————————————————————————————————
     // JavaScript 유틸리티 함수
     // ——————————————————————————————————————
     function type(data) {
-        return Object.prototype.toString.call(data).slice(8, -1).toLowerCase();
+        return toString.call(data).slice(8, -1).toLowerCase();
     }
 
     function isType(data, kind) {
@@ -17,7 +19,7 @@ var FDS = function(global) {
         validateError(kind, '!string', '2번째 전달인자는 문자열이어야 합니다');
         return type(data) === kind;
     }
-    //validateError 패스
+
     function validateError(data, kind, error_message) {
         data = type(data);
         if (kind.indexOf('!') === 0) {
@@ -75,6 +77,35 @@ var FDS = function(global) {
     function makeArray(o) {
         if (!('length' in o)) { return []; }
         return Array.prototype.slice.call(o);
+    }
+    var forEachFn = function() {
+        if (forEach) {
+            return function(o, callback) {
+                o.forEach(callback);
+            }
+        } else {
+            return function(o, callback) {
+                for (var i = 0, l = o.length; i < l; ++i) {
+                    callback(o[i], i, o);
+                }
+            }
+        }
+    }();
+
+    function each(o, callback) {
+        validateError(callback, '!function');
+        if (!isObject(o) && o.length) { o = makeArray(o); }
+        isArray(o) && forEachFn(o, callback);
+        if (isObject(o)) {
+            for (var prop in o) {
+                o.hasOwnProperty(prop) && callback(prop, o[prop], o);
+            }
+        }
+        if (o.nodeType === 1) {
+            for (var prop in o) {
+                callback(prop, o[prop], o);
+            }
+        }
     }
 
     // ——————————————————————————————————————
@@ -285,7 +316,6 @@ var FDS = function(global) {
         return insertAfter(insert, target);
     };
     var removeChild = function(child) {
-        // 부모노드.removeChild(자식노드)
         validateElementNode(child);
         return parent(child).removeChild(child);
     };
@@ -293,43 +323,144 @@ var FDS = function(global) {
         validateElementNode(target);
         return parent(target).replaceChild(replace, target);
     };
-    var hasClass = function(el, name) {
-        validateElementNode(el);
-        validateError(name, '!string');
-        var el_classes = el.getAttribute('class');
-        var reg = new RegExp('(^|\\s)' + name + '($|\\s)');
-        return reg.test(el_classes);
-    };
-    var addClass = function(el, name) {
-        if (!hasClass(el, name)) {
-            var new_value = (el.getAttribute('class') || '') + ' ' + name;
-            el.setAttribute('class', new_value.trim());
+    var clone = function(node, deep) {
+        validateElementNode(node);
+        var copyed_node = node.cloneNode(true);
+        if (deep) {
+            var focus_els = queryAll('[href], button, input', node);
+            var copyed_focus_els = queryAll('[href], button, input', copyed_node);
+            each(focus_els, function(el, index) {
+                each(el, function(key, value) {
+                    if (/^on/.test(key) && isFunction(value)) {
+                        copyed_focus_els[index][key] = value;
+                    }
+                });
+            });
         }
-        return el;
+        return copyed_node;
     };
-    var removeClass = function(el, name) {
-        if (!name) {
-            validateElementNode(el);
-            el.removeAttribute('class');
+    var hasClass = function() {
+        if ('classList' in Element.prototype) {
+            return function(el, name) {
+                validateElementNode(el);
+                validateError(name, '!string');
+                return el.classList.contains(name);
+            };
         } else {
-            if (hasClass(el, name)) {
-                var reg = new RegExp(name);
-                var new_value = el.getAttribute('class').replace(reg, '');
-                el.setAttribute('class', new_value.trim());
-            }
+            return function(el, name) {
+                validateElementNode(el);
+                validateError(name, '!string');
+                var el_classes = el.getAttribute('class');
+                var reg = new RegExp('(^|\\s)' + name + '($|\\s)');
+                return reg.test(el_classes);
+            };
         }
-        return el;
-    };
-    var toggleClass = function(el, name) {
-        return hasClass(el, name) ? removeClass(el, name) : addClass(el, name);
-    };
+    }();
+    var addClass = function() {
+        if ('classList' in Element.prototype) {
+            return function(el, name) {
+                validateElementNode(el);
+                validateError(name, '!string');
+                el.classList.add(name);
+            }
+        } else {
+            return function(el, name) {
+                if (!hasClass(el, name)) {
+                    var new_value = (el.getAttribute('class') || '') + ' ' + name;
+                    el.setAttribute('class', new_value.trim());
+                }
+                return el;
+            };
+        }
+    }();
+    var removeClass = function() {
+        if ('classList' in Element.prototype) {
+            return function(el, name) {
+                validateElementNode(el);
+                validateError(name, '!string');
+                el.classList.remove(name);
+            };
+        } else {
+            return function(el, name) {
+                if (!name) {
+                    validateElementNode(el);
+                    el.removeAttribute('class');
+                } else {
+                    if (hasClass(el, name)) {
+                        var reg = new RegExp(name);
+                        var new_value = el.getAttribute('class').replace(reg, '');
+                        el.setAttribute('class', new_value.trim());
+                    }
+                }
+                return el;
+            };
+        }
+    }();
+    var toggleClass = function() {
+        if ('classList' in Element.prototype) {
+            return function(el, name) {
+                el.classList.toggle(name);
+            };
+        } else {
+            return function(el, name) {
+                hasClass(el, name) ? removeClass(el, name) : addClass(el, name);
+            };
+        }
+    }();
     var radioClass = function(el, name) {
         validateElementNode(el);
         validateError(name, '!string');
         var old_active = query('.' + name, parent(el));
         old_active && removeClass(old_active, name);
-        addClass(el, name);
+        return addClass(el, name);
     };
+    var attr = function(o, prop, value) {
+        if (!o || !prop) {
+            throw '첫번째, 두번째 전달인자는 필수입니다.';
+        }
+        // o는 존재하고, Element Node 인가?
+        if (o && isElementNode(o)) {
+            o = [o];
+        }
+        // prop 데이터 유형이 객체라면?
+        // 객체의 속성을 순환하여 데이터를 처리
+        if (isObject(prop)) {
+            // 노드리스트 순환
+            each(o, function(item, index) {
+                // prop 객체({}) 순환
+                each(prop, function(key, value) {
+                    // class 속성일 경우
+                    if (key === 'class') { addClass(item, value); } else { item.setAttribute(key, value); }
+                });
+            });
+            // 함수 종료
+            return;
+        }
+
+        // GET
+        if (!value) {
+            return o[0].getAttribute(prop);
+        }
+        // SET
+        else {
+            each(o, function(item, index) {
+                // class 속성일 경우
+                if (prop === 'class') { addClass(item, value); } else { item.setAttribute(prop, value); }
+            });
+        }
+    };
+    var removeAttr = function(o, prop) {
+        if (!o || !prop) {
+            throw '첫번째, 두번째 전달인자는 필수입니다.';
+        }
+        if (o && isElementNode(o)) {
+            o = [o];
+        }
+        each(o, function(item) {
+            item.removeAttribute(prop);
+        });
+    };
+
 
     // ---------------------------------------
     // 반환: FDS 네임스페이스 객체
@@ -355,13 +486,9 @@ var FDS = function(global) {
         isObject: isObject,
         makeArray: makeArray,
         validateError: validateError,
+        each: each,
 
         // DOM 선택 API: 유틸리티
-        id: id,
-        tagAll: tagAll,
-        tag: tag,
-        classAll: classAll,
-        classSingle: classSingle,
         selector: query,
         selectorAll: queryAll,
 
@@ -375,6 +502,7 @@ var FDS = function(global) {
 
         // DOM 생성/조작 API: 유틸리티
         createEl: createEl,
+        // createText:     createText,
         appendChild: appendChild,
         prependChild: prependChild,
         removeChild: removeChild,
@@ -383,12 +511,19 @@ var FDS = function(global) {
         before: before,
         after: after,
         replaceChild: replaceChild,
+        clone: clone,
+
         // class 속성 조작: 유틸리티
         hasClass: hasClass,
         addClass: addClass,
         removeClass: removeClass,
         toggleClass: toggleClass,
         radioClass: radioClass,
+
+        // 속성 조작: 유틸리티
+        attr: attr,
+        removeAttr: removeAttr
+
     };
 
 }(window);

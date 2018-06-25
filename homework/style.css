@@ -1,0 +1,39 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    padding: 0
+}
+
+.wrapper {
+    margin: auto;
+    width: 1000px;
+    height: 100vh;
+    display: flex
+}
+
+#sectionA {
+    width: 50%;
+    background: #aaa;
+    padding-top: 10px;
+    padding-left: 10px;
+    float: left;
+}
+
+#sectionA ul {
+    padding: 30px;
+}
+
+#sectionB {
+    width: 50%;
+    background: green;
+    padding-top: 10px;
+    padding-left: 10px;
+}
+
+#sectionB ol {
+    padding: 30px;
+}
+
+li {
+    padding: 10px;
+}

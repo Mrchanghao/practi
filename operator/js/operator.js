@@ -60,9 +60,20 @@ function windowSize() {
 }
 //함수가 객체 내부에 선언되면 함수는 method가 된다.
 // this는 method를 가지고 있는 객체를 가리킨다
-var shape = {
-    width: 600,
-    height: 400,
-    getArea: funtion() { return this.width * this.height; }
-        // --> return shape.width * shape.height  
-}
+
+var car = {
+    getModel: function() {
+        console.log('model of this car is.. ' + this.car);
+    }
+};
+
+var vehicle = Object.create(car, {
+    'id': {
+        value: global_id(),
+        enumerable: true
+    },
+    'model': {
+        value: 'ford',
+        enumerable: true
+    }
+})

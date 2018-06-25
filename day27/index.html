@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>감시자(watch) - Vue.js 프레임워크</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.png" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+    <div class="app container" v-cloak="v-cloak">
+        <form class="form">
+            <label for="search" class="a11y-hidden">검색</label>
+            <input type="search" value="search" class="input is-primary" placeholder="입력하세요" v-model="search_query">
+        </form>
+
+        <thead>
+            <tr>
+                <th v-for="movie in movies">{{key}}</th>
+            </tr>
+        </thead>
+    </div>
+    <script src="https://unpkg.com/vue@2.4.1"></script>
+    <!--<script src="js/main.js"></script>-->
+    <script src="js/table.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+@charset "utf-8";
+html {
+    margin: 100px;
+}
+
+.wrapper {
+    max-width: 1054px;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.rwd-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 25%;
+    height: auto;
+    position: relative;
+    padding-top: 20%;
+    overflow: hidden;
+}
+
+.img-list {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    max-width: 100%;
+    height: auto;
+}
+
+@media screen and (min-width: 768px) and (max-width: 1054px) {
+    .rwd-list {
+        width: 33.333333333%;
+        padding-top: 33.33333333%;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .rwd-list {
+        width: 50%;
+        padding-top: 50%;
+    }
+}

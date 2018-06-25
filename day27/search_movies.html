@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>계산된 속성 - Vue.js 프레임워크</title>
+    <link rel="shortcut icon" type="image/x-icon" href="assets/favicon.png" />
+    <link rel="stylesheet" href="css/main.css" />
+</head>
+
+<body>
+    <!--<div class="app container">
+        <div class="columns">
+            <div class="column is-8 is-offset-2">
+                <form class="form">
+                    <div class="field"><label class="label" for="search">영화 검색</label>
+                        <p class="control has-icons-left"><input class="input" id="search" type="seach" placeholder="영화 이름"
+                        @input="inputChangeSearch" :value="search" /><span class="icon is-small is-left"><i class="fa fa-video-camera"></i></span></p>
+                    </div>
+                </form>
+                <hr/>
+                <ul class="movies">
+                    <li class="box movie" v-for="movie in searched_movie">{{ movie }}</li>
+                </ul>
+            </div>
+        </div>
+        <a :href="link.href" :target="link.external ? '_blank' : null" :title="link.label + (link.external ? '(new tab)' : '')" :class="[{'link.external' : link.external}, toggle_class]" @click.prevent="toggleClass('toggle')">{{link.label}}</a>
+    </div>-->
+    <div class="app container">
+        <div class="columns">
+            <div class="column is-8 is-offset-2">
+                <form class="form">
+                    <div class="field"><label for="search" class="label">영화검색</label>
+                        <p class="control has-icons-left">
+                            <input class="input" id="search" type="seach" placeholder="영화 이름" @input="inputChangeSearch" :value="search" />
+                            <span class="icon is-small is-left"><i class="fa fa-video-camera"></i></span>
+                        </p>
+                    </div>
+                </form>
+                <hr/>
+                <ul class="movies">
+                    <li class="box movies" v-for="movie in searched_movie">{{ movie }}</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+    <script src="https://unpkg.com/vue@2.4.1"></script>
+    <!--<script src="js/main.js"></script>-->
+    <script src="js/search_movies.js"></script>
+</body>
+
+</html>
